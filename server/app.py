@@ -41,15 +41,15 @@ def animal_by_id(id):
 
 @app.route("/zookeeper/<int:id>")
 def zookeeper_by_id(id):
-    zookeeper = Animal.query.filter(Animal.id == id).first()
+    zookeeper = Zookeeper.query.filter(Zookeeper.id == id).first()
     if zookeeper:
         response_body = f"""
             <h1>Zookeeper Details</h1>
             <ul>Name: {zookeeper.name}</ul>
             <ul>Birthday: {zookeeper.birthday}</ul>
-                <ul>Animals:
+                <ul>Animal:
                     <ul>
-                        {zookeeper.animals}
+                        {"".join([f"<li>{ animal.name}</li>" for animal in zookeeper.animals])}
                     </ul>
                 </ul>
         """
@@ -68,7 +68,7 @@ def enclosure_by_id(id):
             <h1>Enclosure Details</h1>
             <ul>Environment: {enclosure.environment}</ul>
             <ul>Open to Visitors: {enclosure.open_to_visitors}</ul>
-            <ul>Animals:
+            <ul>Animal:
                 <ul>
                     {enclosure.animals}
                 </ul>
